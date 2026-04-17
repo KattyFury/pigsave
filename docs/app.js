@@ -414,3 +414,6 @@ if (window.ethereum) {
   window.ethereum.on("accountsChanged", () => location.reload());
   window.ethereum.on("chainChanged",    () => location.reload());
 }
+
+// Apply default language on page load
+document.addEventListener("DOMContentLoaded", () => setLang("en"));
