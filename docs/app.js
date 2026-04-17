@@ -390,6 +390,13 @@ function showToast(msg) {
   toastTimer = setTimeout(() => el.classList.add("hidden"), 3200);
 }
 
+function disconnectWallet() {
+  provider = null; signer = null; userAddress = null; pigSaveContract = null;
+  userData = { balance: 0n, depositCount: 0n, lastDepositTime: 0n, streak: 0n };
+  document.getElementById("appSection").classList.add("hidden");
+  document.getElementById("connectSection").classList.remove("hidden");
+}
+
 if (window.ethereum) {
   window.ethereum.on("accountsChanged", () => location.reload());
   window.ethereum.on("chainChanged",    () => location.reload());

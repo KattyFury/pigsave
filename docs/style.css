@@ -410,14 +410,33 @@ body {
 .btn-break:active { transform: scale(0.97); }
 .btn-break:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
-/* ── Wallet label ─────────────────────────────────────── */
+/* ── Wallet row ───────────────────────────────────────── */
+.wallet-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-top: -4px;
+}
 .wallet-label {
   font-size: 11px;
   font-weight: 500;
   color: #C0907A;
   opacity: 0.6;
-  margin-top: -4px;
 }
+.btn-disconnect {
+  background: none;
+  border: none;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #C0907A;
+  opacity: 0.55;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+.btn-disconnect:hover { opacity: 1; }
 
 /* ── Modal ────────────────────────────────────────────── */
 .modal-overlay {
