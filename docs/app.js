@@ -164,11 +164,8 @@ async function connectWallet() {
   if (!window.ethereum) { showToast(t("noMeta")); return; }
   try {
     await switchToArc();
-    // Always show account picker so user can choose a different wallet
-    await window.ethereum.request({
-      method: "wallet_requestPermissions",
-      params: [{ eth_accounts: {} }],
-    });
+    // Simple connect — works reliably on both desktop and mobile
+    await window.ethereum.request({ method: "eth_requestAccounts" });
     provider        = new ethers.BrowserProvider(window.ethereum);
     signer          = await provider.getSigner();
     userAddress     = await signer.getAddress();
