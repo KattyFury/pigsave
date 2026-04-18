@@ -199,15 +199,7 @@ body {
   width: 200px;
 }
 
-.pig-shadow {
-  position: absolute;
-  bottom: 28px;
-  width: 80px;
-  height: 10px;
-  background: radial-gradient(ellipse, rgba(180,80,40,0.18) 0%, transparent 70%);
-  border-radius: 50%;
-  transition: width 0.6s ease;
-}
+.pig-shadow { display: none; }
 
 .pig {
   width: 150px;
