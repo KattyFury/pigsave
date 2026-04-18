@@ -201,7 +201,7 @@ body {
 
 .pig-shadow {
   position: absolute;
-  bottom: 18px;
+  bottom: 28px;
   width: 80px;
   height: 10px;
   background: radial-gradient(ellipse, rgba(180,80,40,0.18) 0%, transparent 70%);
