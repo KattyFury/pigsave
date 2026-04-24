@@ -1,158 +1,172 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>PigSave – Piggy Bank On-Chain</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="images/pig-logo.png" />
   <link rel="apple-touch-icon" href="images/pig-logo.png" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+<div class="container">
 
-  <!-- Language toggle -->
+  <!-- Language toggle — inside container so it centres with everything -->
   <div class="lang-toggle">
     <button id="langEN" class="lang-btn active" onclick="setLang('en')">English</button>
-    <button id="langVI" class="lang-btn"        onclick="setLang('vi')">Vietnamese</button>
-    <button id="langZH" class="lang-btn"        onclick="setLang('zh')">Chinese</button>
+    <button id="langVI" class="lang-btn"        onclick="setLang('vi')">Tiếng Việt</button>
+    <button id="langZH" class="lang-btn"        onclick="setLang('zh')">中文</button>
   </div>
 
-  <div class="container">
+  <!-- ══ SCREEN 1 · Connect ═══════════════════════════════ -->
+  <div id="connectSection" class="screen screen-connect">
+    <div class="brand">
+      <h1 class="app-title">PigSave</h1>
+      <p class="app-sub"
+         data-vi="Bỏ vào từng chút – Đập ra thật đáng"
+         data-en="Put in small · Break out big"
+         data-zh="投得少，爆得大">Put in small · Break out big</p>
+    </div>
+    <img src="images/pig-normal.png" class="hero-pig" alt="pig" />
+    <p class="connect-hint"
+       data-vi="Kết nối ví để bắt đầu bỏ heo"
+       data-en="Connect your wallet and start saving"
+       data-zh="连接钱包开始存钱">Connect your wallet and start saving</p>
+    <button class="btn-primary" onclick="connectWallet()">
+      <span data-vi="Kết nối ví" data-en="Connect Wallet" data-zh="连接钱包">Connect Wallet</span>
+    </button>
+  </div>
 
-    <!-- Header -->
-    <div class="header">
-      <h1 class="title">PigSave</h1>
-      <p class="subtitle" data-vi="Bỏ vào từng chút – Đập ra thật đáng" data-en="Put in small – Break out big" data-zh="投得少，爆得大">Bỏ vào từng chút – Đập ra thật đáng</p>
+  <!-- ══ SCREEN 2 · Buy Pig ════════════════════════════════ -->
+  <div id="buySection" class="screen screen-buy hidden">
+    <h1 class="app-title-sm">PigSave</h1>
+    <img src="images/pig-normal.png" class="hero-pig-sm" alt="pig" />
+
+    <h2 class="buy-title"
+        data-vi="Mua heo để bắt đầu!"
+        data-en="Get your pig!"
+        data-zh="购买小猪！">Get your pig!</h2>
+
+    <!-- Mode selection -->
+    <div class="mode-select">
+      <button id="selectNormal"  class="mode-select-btn active" onclick="selectMode('normal')">
+        <span data-vi="Bình thường" data-en="Normal" data-zh="普通">Normal</span>
+      </button>
+      <button id="selectPurpose" class="mode-select-btn"        onclick="selectMode('purpose')">
+        <span data-vi="Có mục tiêu" data-en="With Goal" data-zh="目标">With Goal</span>
+      </button>
     </div>
 
-    <!-- Connect screen -->
-    <div id="connectSection">
-      <div class="connect-card">
-        <img src="images/pig-normal.png" class="connect-pig" alt="pig" />
-        <p class="connect-hint" data-vi="Kết nối ví để bắt đầu bỏ heo" data-en="Connect your wallet to start saving" data-zh="连接钱包开始存钱">
-          Kết nối ví để bắt đầu bỏ heo
-        </p>
-        <button class="btn-connect" onclick="connectWallet()">
-          <span data-vi="Kết nối ví" data-en="Connect Wallet" data-zh="连接钱包">Kết nối ví</span>
-        </button>
-      </div>
+    <p id="modeDescNormal" class="mode-desc"
+       data-vi="Bỏ heo đủ 30 lần → lấy lại 1 USDC"
+       data-en="Save 30 times → get your 1 USDC back"
+       data-zh="存30次 → 退回1 USDC">Save 30 times → get your 1 USDC back</p>
+    <p id="modeDescPurpose" class="mode-desc hidden"
+       data-vi="Đạt mục tiêu tiết kiệm → lấy lại 1 USDC"
+       data-en="Reach your saving goal → get your 1 USDC back"
+       data-zh="达成目标 → 退回1 USDC">Reach your saving goal → get your 1 USDC back</p>
+
+    <!-- Goal input shown only in purpose mode -->
+    <div id="goalInputWrap" class="hidden">
+      <input id="goalInput" type="number" min="1" step="1"
+             placeholder="Goal amount (USDC)" class="goal-input" />
     </div>
 
-    <!-- App (shown after connect) -->
-    <div id="appSection" class="hidden">
+    <button class="btn-primary btn-buy" onclick="buyPigAction()">
+      <span data-vi="🐷 Mua heo · 1 USDC"
+            data-en="🐷 Buy Pig · 1 USDC"
+            data-zh="🐷 购买小猪 · 1 USDC">🐷 Buy Pig · 1 USDC</span>
+    </button>
 
-      <!-- Mode toggle -->
-      <div class="mode-toggle">
-        <button id="modeNormal" class="mode-btn active" onclick="setMode('normal')">
-          <span data-vi="Bình thường" data-en="Normal" data-zh="普通模式">Bình thường</span>
-        </button>
-        <button id="modePurpose" class="mode-btn" onclick="setMode('purpose')">
-          <span data-vi="Có mục tiêu" data-en="With Goal" data-zh="目标模式">Có mục tiêu</span>
-        </button>
-      </div>
+    <div class="wallet-row">
+      <p class="wallet-label" id="buyWalletAddr"></p>
+      <button class="btn-disconnect" onclick="disconnectWallet()"
+              data-vi="Ngắt kết nối" data-en="Disconnect" data-zh="断开连接">Disconnect</button>
+    </div>
+  </div>
 
-      <!-- Stats bar -->
-      <div class="stats">
-        <div class="stat">
-          <span class="stat-value" id="depositCount">0</span>
-          <span class="stat-label" data-vi="lần bỏ heo" data-en="times saved" data-zh="次存钱">lần bỏ heo</span>
-        </div>
-        <div class="stat-dot">•</div>
-        <div class="stat">
-          <span class="stat-value" id="streakCount">0</span>
-          <span class="stat-label" data-vi="ngày liên tiếp" data-en="day streak" data-zh="连续天数">ngày liên tiếp</span>
-        </div>
-      </div>
+  <!-- ══ SCREEN 3 · Main App ═══════════════════════════════ -->
+  <div id="appSection" class="screen screen-app hidden">
 
-      <!-- Pig area -->
-      <div class="pig-wrap">
-        <div class="pig-shadow"></div>
+    <!-- Deposit count centred at top -->
+    <div class="stats-center">
+      <span class="stat-big" id="depositCount">0</span>
+      <span class="stat-unit"
+            data-vi="lần bỏ heo" data-en="times saved" data-zh="次存钱">times saved</span>
+    </div>
+
+    <!-- Pig: outer div = rank scale, inner img = bounce animation -->
+    <div class="pig-wrap">
+      <div class="pig-scale" id="pigScale">
         <img id="pigImg" src="images/pig-normal.png" class="pig" alt="pig" />
       </div>
+    </div>
 
-      <!-- Rank badge -->
-      <div id="rankBadge" class="rank-badge rank-piglet">🐷 Piglet</div>
+    <!-- Rank name (no icon) -->
+    <div id="rankBadge" class="rank-badge rank-piglet">Piglet</div>
 
-      <!-- Progress toward 30 (Normal mode) -->
-      <div id="normalProgress" class="progress-wrap">
-        <div class="progress-track">
-          <div id="progressFill" class="progress-fill" style="width:0%"></div>
-        </div>
-        <span class="progress-label" id="progressLabel">0 / 30</span>
+    <!-- Normal mode: 30-deposit progress bar -->
+    <div id="normalProgress" class="progress-wrap">
+      <div class="progress-track">
+        <div id="progressFill" class="progress-fill" style="width:0%"></div>
       </div>
+      <span class="progress-label" id="progressLabel">0 / 30</span>
+    </div>
 
-      <!-- Purpose mode section -->
-      <div id="purposeSection" class="purpose-section hidden">
-
-        <!-- Goal setup (shown when no goal yet) -->
-        <div id="goalSetup" class="goal-setup">
-          <p class="goal-hint" data-vi="Bạn muốn để dành bao nhiêu tiền?" data-en="How much do you want to save?" data-zh="你想存多少钱？">Bạn muốn để dành bao nhiêu tiền?</p>
-          <div class="goal-input-row">
-            <input id="goalInput" type="number" min="1" placeholder="0 USDC" class="goal-input" />
-            <button class="btn-set-goal" onclick="setGoal()">
-              <span data-vi="Đặt mục tiêu" data-en="Set Goal" data-zh="设置目标">Đặt mục tiêu</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Goal progress (shown when goal is set) -->
-        <div id="goalProgress" class="goal-progress hidden">
-          <div class="goal-progress-track">
-            <div id="goalFill" class="goal-progress-fill" style="width:0%"></div>
-          </div>
-          <p class="goal-pct" id="goalPct">0%</p>
-          <button class="btn-reset-goal" onclick="resetGoal()">
-            <span data-vi="Đổi mục tiêu" data-en="Change goal" data-zh="更改目标">Đổi mục tiêu</span>
-          </button>
-        </div>
-
+    <!-- Purpose mode: goal % progress bar -->
+    <div id="purposeProgress" class="progress-wrap hidden">
+      <div class="progress-track">
+        <div id="goalFill" class="progress-fill goal-fill" style="width:0%"></div>
       </div>
+      <span class="progress-label" id="goalPct">0%</span>
+    </div>
 
-      <!-- Deposit buttons -->
-      <div class="deposit-row">
-        <button class="btn-deposit" onclick="deposit(1)">+ 1 USDC</button>
-        <button class="btn-deposit" onclick="deposit(10)">+ 10 USDC</button>
-        <button class="btn-deposit" onclick="deposit(50)">+ 50 USDC</button>
-      </div>
+    <!-- Deposit buttons: $1 $10 $100 -->
+    <div class="deposit-row">
+      <button class="btn-deposit" onclick="deposit(1)">+$1</button>
+      <button class="btn-deposit" onclick="deposit(10)">+$10</button>
+      <button class="btn-deposit" onclick="deposit(100)">+$100</button>
+    </div>
 
-      <!-- Break piggy bank -->
-      <button class="btn-break" onclick="tryWithdraw()">
-        <span data-vi="🔨 Đập heo" data-en="🔨 Break Piggy Bank" data-zh="🔨 打碎存钱罐">🔨 Đập heo</span>
+    <!-- Break piggy bank -->
+    <button class="btn-break" onclick="tryWithdraw()">
+      <span data-vi="🔨 Đập heo" data-en="🔨 Break Piggy Bank" data-zh="🔨 打碎存钱罐">🔨 Break Piggy Bank</span>
+    </button>
+
+    <!-- Wallet address + disconnect -->
+    <div class="wallet-row">
+      <p class="wallet-label" id="walletAddr"></p>
+      <button class="btn-disconnect" onclick="disconnectWallet()"
+              data-vi="Ngắt kết nối" data-en="Disconnect" data-zh="断开连接">Disconnect</button>
+    </div>
+
+  </div>
+</div><!-- /container -->
+
+<!-- Early-withdrawal modal -->
+<div id="modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <img src="images/pig-sad.png" class="modal-pig" alt="sad pig" />
+    <h2 id="modalTitle"></h2>
+    <p  id="modalBody"  class="modal-body"></p>
+    <p  id="modalCount" class="modal-count"></p>
+    <div class="modal-actions">
+      <button class="btn-keep" onclick="closeModal()">
+        <span data-vi="Để dành thêm 🐷" data-en="Keep saving 🐷" data-zh="继续存钱 🐷">Keep saving 🐷</span>
       </button>
-
-      <!-- Wallet address + disconnect -->
-      <div class="wallet-row">
-        <p class="wallet-label" id="walletAddr"></p>
-        <button class="btn-disconnect" onclick="disconnectWallet()" data-vi="Ngắt kết nối" data-en="Disconnect" data-zh="断开连接">Ngắt kết nối</button>
-      </div>
-
+      <button class="btn-break-anyway" onclick="confirmWithdraw()">
+        <span data-vi="Đập luôn 💔" data-en="Break it 💔" data-zh="打碎 💔">Break it 💔</span>
+      </button>
     </div>
   </div>
+</div>
 
-  <!-- Early-withdrawal modal -->
-  <div id="modal" class="modal-overlay hidden">
-    <div class="modal-box">
-      <img src="images/pig-sad.png" class="modal-pig" alt="sad pig" />
-      <h2 id="modalTitle">Heo chưa đủ no...</h2>
-      <p id="modalBody" class="modal-body"></p>
-      <p id="modalCount" class="modal-count"></p>
-      <div class="modal-actions">
-        <button class="btn-keep" onclick="closeModal()">
-          <span data-vi="Để dành thêm 🐷" data-en="Keep saving 🐷" data-zh="继续存钱 🐷">Để dành thêm 🐷</span>
-        </button>
-        <button class="btn-break-anyway" onclick="confirmWithdraw()">
-          <span data-vi="Đập luôn 💔" data-en="Break it 💔" data-zh="打碎 💔">Đập luôn 💔</span>
-        </button>
-      </div>
-    </div>
-  </div>
+<!-- Toast -->
+<div id="toast" class="toast hidden"></div>
 
-  <!-- Toast notification -->
-  <div id="toast" class="toast hidden"></div>
-
-  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.0/dist/ethers.umd.min.js"></script>
-  <script src="app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.0/dist/ethers.umd.min.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
