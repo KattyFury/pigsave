@@ -118,7 +118,7 @@ function setLang(lang) {
 
 function applyLang() {
   document.querySelectorAll("[data-vi]").forEach(el => {
-    el.textContent = el.getAttribute(`data-${currentLang}`) ?? el.getAttribute("data-en");
+    el.innerHTML = el.getAttribute(`data-${currentLang}`) ?? el.getAttribute("data-en");
   });
   if (userData.hasPig) updateStats();
 }
