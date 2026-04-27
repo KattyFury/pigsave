@@ -552,6 +552,9 @@ if (window.ethereum) {
 
 // ── On page load: apply language + auto-reconnect ─────────
 document.addEventListener("DOMContentLoaded", async () => {
+  // Preload all 12 pig images so every state transition is instant (no flicker)
+  ['a','b','c'].forEach(p => [1,2,3,4].forEach(s => { new Image().src = `images/${p}${s}.png`; }));
+
   setLang("en");
   if (window.ethereum) {
     const accounts = await window.ethereum.request({ method: "eth_accounts" });
