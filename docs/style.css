@@ -374,8 +374,6 @@ body {
   width: auto;
   object-fit: contain;
   display: block;
-  filter: drop-shadow(0 8px 20px rgba(160,80,30,0.22));
-  transition: opacity 0.25s ease;
 }
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
