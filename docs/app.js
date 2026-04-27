@@ -33,8 +33,8 @@ let userData = {
 // ── Rank System ────────────────────────────────────────────
 // Diamond fills 9-cell area at ×1.4; Piglet base = ~164 px
 function getRank(balanceUSD) {
-  if (balanceUSD >= 1000) return { cls: "rank-diamond-pig", label: "Diamond Pig", scale: 1.4, prefix: "c" };
-  if (balanceUSD >= 100)  return { cls: "rank-golden-pig",  label: "Golden Pig",  scale: 1.2, prefix: "b" };
+  if (balanceUSD >= 1000) return { cls: "rank-diamond-pig", label: "Diamond Pig", scale: 1.2, prefix: "c" };
+  if (balanceUSD >= 100)  return { cls: "rank-golden-pig",  label: "Golden Pig",  scale: 1.1, prefix: "b" };
   return                         { cls: "rank-piglet",      label: "Piglet",      scale: 1.0, prefix: "a" };
 }
 
@@ -42,68 +42,88 @@ function getRank(balanceUSD) {
 const T = {
   vi: {
     noGoalInput:    "Nhập số tiền mục tiêu trước nhé!",
-    buying:         "Đang mua heo... 🐷",
-    buyOk:          "Có heo rồi! Bắt đầu tiết kiệm thôi 🎉",
-    depositing:     "Đang bỏ heo... 🐷",
+    buying:         "Đang mua heo...",
+    buyOk:          "Có heo rồi! Bắt đầu tiết kiệm thôi",
+    depositing:     "Đang bỏ heo...",
     withdrawing:    "Đang đập heo...",
-    depositOk:      (n) => `Bỏ heo lần ${n}! 🎉`,
-    rankUp:         (r) => `Lên cấp: ${r}! 🎊`,
-    withdrawOk:     "Đập heo thành công! 💰 Tiền về ví rồi!",
-    txFailed:       "Giao dịch thất bại 😢",
+    depositOk:      (n) => `Bỏ heo lần ${n}!`,
+    rankUp:         (r) => `Lên cấp: ${r}!`,
+    withdrawOk:     "Đập heo thành công! Tiền về ví rồi!",
+    txFailed:       "Giao dịch thất bại",
     noBalance:      "Heo đang rỗng, bỏ tiền vào trước nhé!",
     noMeta:         "Cài MetaMask để tiếp tục!",
     connectFail:    "Kết nối thất bại",
     needNetwork:    "Đang chuyển sang Arc Testnet...",
     // Normal mode early break
     earlyTitle:     "Heo chưa đủ no...",
-    earlyBody:      "Chưa đủ 30 lần bỏ heo.\n⚠️ Đập sớm sẽ mất 1 USDC tiền mua heo!",
+    earlyBody:      "Bạn chưa bỏ heo đủ 30 lần.\nNếu đập sớm, 1 USDC mua heo sẽ không được hoàn lại. Hãy kiên trì thêm nhé!",
     earlyCount:     (done, left) => `${done} / 30 lần — còn ${left} lần nữa`,
     // Purpose mode early break
     goalEarlyTitle: "Chưa đến đích rồi...",
-    goalEarlyBody:  "Chưa đạt mục tiêu tiết kiệm.\n⚠️ Đập sớm sẽ mất 1 USDC tiền mua heo!",
+    goalEarlyBody:  "Bạn chưa đạt mục tiêu tiết kiệm.\nNếu đập sớm, 1 USDC mua heo sẽ không được hoàn lại. Hãy kiên trì thêm nhé!",
     goalEarlyCount: (pct) => `Hiện tại mới được ${pct}%`,
+    // 30/30 success
+    successTitle:   "Bạn đã làm được rồi!",
+    successBody:    "Bỏ heo đủ 30 lần — bạn đã giữ kỷ luật tài chính trong ít nhất một tháng.\n1 USDC mua heo sẽ được hoàn trả cùng toàn bộ số tiền đã để dành.",
+    successCount:   (n) => `Tổng cộng ${n} lần bỏ heo`,
+    // Purpose mode success
+    goalSuccessTitle: "Mục tiêu đạt được!",
+    goalSuccessBody:  "Bạn đã tiết kiệm đủ số tiền mục tiêu!\n1 USDC mua heo sẽ được hoàn trả cùng toàn bộ số tiền đã để dành.",
+    goalSuccessCount: (pct) => `Đã đạt ${pct}% mục tiêu`,
   },
   en: {
     noGoalInput:    "Please enter your saving goal first!",
-    buying:         "Buying your pig... 🐷",
-    buyOk:          "Pig acquired! Start saving 🎉",
-    depositing:     "Saving to piggy... 🐷",
+    buying:         "Buying your pig...",
+    buyOk:          "Pig acquired! Start saving",
+    depositing:     "Saving to piggy...",
     withdrawing:    "Breaking piggy bank...",
-    depositOk:      (n) => `Save #${n} done! 🎉`,
-    rankUp:         (r) => `Rank up: ${r}! 🎊`,
-    withdrawOk:     "Piggy broken! 💰 Funds returned to wallet!",
-    txFailed:       "Transaction failed 😢",
+    depositOk:      (n) => `Save #${n} done!`,
+    rankUp:         (r) => `Rank up: ${r}!`,
+    withdrawOk:     "Piggy broken! Funds returned to wallet!",
+    txFailed:       "Transaction failed",
     noBalance:      "Piggy is empty — deposit first!",
     noMeta:         "Please install MetaMask!",
     connectFail:    "Connection failed",
     needNetwork:    "Switching to Arc Testnet...",
-    earlyTitle:     "Piggy isn't full yet...",
-    earlyBody:      "You haven't saved 30 times yet.\n⚠️ Breaking early will forfeit your 1 USDC pig fee!",
+    earlyTitle:     "Your piggy isn't full yet...",
+    earlyBody:      "You haven't saved 30 times yet.\nBreaking early means you won't get your 1 USDC pig fee back. Stay strong!",
     earlyCount:     (done, left) => `${done} / 30 saves — ${left} more to go`,
     goalEarlyTitle: "Not at your goal yet...",
-    goalEarlyBody:  "You haven't reached your saving goal.\n⚠️ Breaking early will forfeit your 1 USDC pig fee!",
+    goalEarlyBody:  "You haven't reached your saving goal yet.\nBreaking early means you won't get your 1 USDC pig fee back. Stay strong!",
     goalEarlyCount: (pct) => `Current progress: ${pct}%`,
+    successTitle:   "You earned it!",
+    successBody:    "30 saves complete — you stayed disciplined for at least a month.\nYour 1 USDC pig fee will be refunded together with all your savings.",
+    successCount:   (n) => `Total saves: ${n}`,
+    goalSuccessTitle: "Goal reached!",
+    goalSuccessBody:  "You hit your saving target!\nYour 1 USDC pig fee will be refunded together with all your savings.",
+    goalSuccessCount: (pct) => `Reached ${pct}% of goal`,
   },
   zh: {
     noGoalInput:    "请先输入目标金额！",
-    buying:         "购买小猪中... 🐷",
-    buyOk:          "小猪到手！开始存钱吧 🎉",
-    depositing:     "正在存钱... 🐷",
+    buying:         "购买小猪中...",
+    buyOk:          "小猪到手！开始存钱吧",
+    depositing:     "正在存钱...",
     withdrawing:    "正在打碎存钱罐...",
-    depositOk:      (n) => `第 ${n} 次存钱成功！🎉`,
-    rankUp:         (r) => `升级了：${r}！🎊`,
-    withdrawOk:     "存钱罐已打碎！💰 资金已返回钱包！",
-    txFailed:       "交易失败 😢",
+    depositOk:      (n) => `第 ${n} 次存钱成功！`,
+    rankUp:         (r) => `升级了：${r}！`,
+    withdrawOk:     "存钱罐已打碎！资金已返回钱包！",
+    txFailed:       "交易失败",
     noBalance:      "存钱罐是空的，先存点钱吧！",
     noMeta:         "请先安装 MetaMask！",
     connectFail:    "连接失败",
     needNetwork:    "正在切换到 Arc 测试网...",
     earlyTitle:     "小猪还没吃饱...",
-    earlyBody:      "你还没存30次。\n⚠️ 提前打碎将损失1 USDC购买费！",
+    earlyBody:      "你还没存30次。\n提前打碎将无法退回1 USDC购买费。再坚持一下！",
     earlyCount:     (done, left) => `${done} / 30 次 — 还差 ${left} 次`,
     goalEarlyTitle: "还没到终点...",
-    goalEarlyBody:  "你还没达到存钱目标。\n⚠️ 提前打碎将损失1 USDC购买费！",
+    goalEarlyBody:  "你还没达到存钱目标。\n提前打碎将无法退回1 USDC购买费。再坚持一下！",
     goalEarlyCount: (pct) => `目前进度 ${pct}%`,
+    successTitle:   "你做到了！",
+    successBody:    "存满30次——你坚持了至少一个月的财务纪律。\n1 USDC购买费将连同全部存款一起退还。",
+    successCount:   (n) => `共存钱 ${n} 次`,
+    goalSuccessTitle: "目标达成！",
+    goalSuccessBody:  "你已达到存钱目标！\n1 USDC购买费将连同全部存款一起退还。",
+    goalSuccessCount: (pct) => `已达成目标的 ${pct}%`,
   }
 };
 
@@ -113,23 +133,35 @@ function t(key, ...args) {
 }
 
 // ── Language ───────────────────────────────────────────────
-function cycleLang() {
-  const idx = LANG_CYCLE.indexOf(currentLang);
-  currentLang = LANG_CYCLE[(idx + 1) % LANG_CYCLE.length];
+function toggleLangMenu() {
+  document.querySelectorAll(".lang-selector").forEach(s => s.classList.toggle("open"));
+}
+
+function pickLang(lang) {
+  // close all menus
+  document.querySelectorAll(".lang-selector").forEach(s => s.classList.remove("open"));
+  setLang(lang);
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  // update pill label
   document.querySelectorAll(".lang-pill").forEach(btn => {
-    btn.textContent = LANG_LABELS[currentLang];
+    btn.textContent = LANG_LABELS[lang];
+  });
+  // update active option highlight in all dropdowns
+  document.querySelectorAll(".lang-option").forEach(opt => {
+    opt.classList.toggle("active", opt.getAttribute("onclick") === `pickLang('${lang}')`);
   });
   applyLang();
 }
 
-// keep setLang() for auto-reconnect init (sets pill label too)
-function setLang(lang) {
-  currentLang = lang;
-  document.querySelectorAll(".lang-pill").forEach(btn => {
-    btn.textContent = LANG_LABELS[lang];
-  });
-  applyLang();
-}
+// close dropdown when clicking outside
+document.addEventListener("click", e => {
+  if (!e.target.closest(".lang-selector")) {
+    document.querySelectorAll(".lang-selector").forEach(s => s.classList.remove("open"));
+  }
+});
 
 function applyLang() {
   document.querySelectorAll("[data-vi]").forEach(el => {
@@ -235,7 +267,8 @@ async function disconnectWallet() {
 }
 
 // ── Data refresh ───────────────────────────────────────────
-async function refreshData() {
+// skipPigReset = true when called mid-animation (deposit flow)
+async function refreshData(skipPigReset = false) {
   try {
     const [bal, cnt, mode, goal, hasPig] = await pigSaveContract.getUserData(userAddress);
     userData = { balance: bal, depositCount: cnt, mode: Number(mode), goalAmount: goal, hasPig };
@@ -253,9 +286,12 @@ async function refreshData() {
     document.getElementById("purposeProgress").classList.toggle("hidden",  isNormal);
 
     updateStats();
-    // Start at scale 0 so the pig grows smoothly into view via CSS transition
-    document.getElementById("pigScale").style.transform = "scale(0)";
-    requestAnimationFrame(() => setPigVisual("normal"));
+
+    if (!skipPigReset) {
+      // Grow pig smoothly from scale 0 when first landing on app screen
+      document.getElementById("pigScale").style.transform = "scale(0)";
+      requestAnimationFrame(() => setPigVisual("normal"));
+    }
   } catch (err) {
     console.error("refreshData error:", err);
   }
@@ -268,20 +304,24 @@ function updateStats() {
   const balUSD = Number(ethers.formatUnits(userData.balance, 18));
   const rank   = getRank(balUSD);
 
-  // Deposit count
+  // Deposit count (always shown, keeps climbing)
   document.getElementById("depositCount").textContent = count;
 
   // Rank badge
-  const badge     = document.getElementById("rankBadge");
+  const badge = document.getElementById("rankBadge");
   badge.textContent = rank.label;
-  badge.className   = "rank-badge " + rank.cls;
+  badge.className   = "a-rank " + rank.cls;
 
   // Progress bars
   if (userData.mode === 1) {
-    // Normal: how many of 30 deposits done
-    const pct = Math.min((count / 30) * 100, 100);
-    document.getElementById("progressFill").style.width  = pct + "%";
-    document.getElementById("progressLabel").textContent = `${count} / 30`;
+    // Normal: show progress bar only until 30 saves; hide once complete
+    const done = count >= 30;
+    document.getElementById("normalProgress").classList.toggle("hidden", done);
+    if (!done) {
+      const pct = Math.min((count / 30) * 100, 100);
+      document.getElementById("progressFill").style.width  = pct + "%";
+      document.getElementById("progressLabel").textContent = `${count} / 30`;
+    }
   } else {
     // Purpose: how close to goal
     const goalUSD = Number(ethers.formatUnits(userData.goalAmount, 18));
@@ -356,14 +396,16 @@ async function deposit(usdcAmount) {
   setBusy(true);
   try {
     showToast(t("depositing"));
-    setPigVisual("deposit");
+    setPigVisual("deposit");          // step 1: deposit animation
 
     const tx = await pigSaveContract.deposit({ value: amount });
     await tx.wait();
 
-    await refreshData();
+    // skipPigReset=true so refreshData doesn't clobber our animation
+    await refreshData(true);
+
     bouncePig();
-    setPigVisual("happy");
+    setPigVisual("happy");            // step 2: happy after tx confirmed
 
     const newBalUSD = Number(ethers.formatUnits(userData.balance, 18));
     const newRank   = getRank(newBalUSD).label;
@@ -375,7 +417,7 @@ async function deposit(usdcAmount) {
       showToast(t("depositOk", newCount));
     }
 
-    setTimeout(() => setPigVisual("normal"), 2200);
+    setTimeout(() => setPigVisual("normal"), 2200); // step 3: back to normal
   } catch (err) {
     console.error(err);
     showToast(t("txFailed"));
@@ -386,6 +428,12 @@ async function deposit(usdcAmount) {
 }
 
 // ── Withdraw ───────────────────────────────────────────────
+function showModal(isSuccess) {
+  const modal = document.getElementById("modal");
+  modal.classList.remove("hidden");
+  modal.classList.toggle("success", isSuccess);
+}
+
 function tryWithdraw() {
   if (userData.balance === 0n) { showToast(t("noBalance")); return; }
 
@@ -393,15 +441,20 @@ function tryWithdraw() {
     // Normal mode
     const count = Number(userData.depositCount);
     if (count >= 30) {
-      executeWithdraw();
+      // Success: pig is happy, congrats modal
+      setPigVisual("happy");
+      document.getElementById("modalTitle").textContent = t("successTitle");
+      document.getElementById("modalBody").textContent  = t("successBody");
+      document.getElementById("modalCount").textContent = t("successCount", count);
+      showModal(true);
     } else {
+      // Early break: pig is sad, warning modal
       const left = 30 - count;
+      setPigVisual("sad");
       document.getElementById("modalTitle").textContent = t("earlyTitle");
       document.getElementById("modalBody").textContent  = t("earlyBody");
       document.getElementById("modalCount").textContent = t("earlyCount", count, left);
-      setPigVisual("sad");
-      document.querySelector(".modal-pig").src = `images/${getRank(Number(ethers.formatUnits(userData.balance, 18))).prefix}2.png`;
-      document.getElementById("modal").classList.remove("hidden");
+      showModal(false);
     }
   } else {
     // With Goal mode
@@ -409,25 +462,39 @@ function tryWithdraw() {
     const goalUSD = Number(ethers.formatUnits(userData.goalAmount, 18));
     const pct     = goalUSD > 0 ? Math.floor((balUSD / goalUSD) * 100) : 100;
     if (pct >= 100) {
-      executeWithdraw();
+      // Goal reached: happy pig, congrats
+      setPigVisual("happy");
+      document.getElementById("modalTitle").textContent = t("goalSuccessTitle");
+      document.getElementById("modalBody").textContent  = t("goalSuccessBody");
+      document.getElementById("modalCount").textContent = t("goalSuccessCount", pct);
+      showModal(true);
     } else {
+      // Early break: sad pig, warning
+      setPigVisual("sad");
       document.getElementById("modalTitle").textContent = t("goalEarlyTitle");
       document.getElementById("modalBody").textContent  = t("goalEarlyBody");
       document.getElementById("modalCount").textContent = t("goalEarlyCount", pct);
-      setPigVisual("sad");
-      document.querySelector(".modal-pig").src = `images/${getRank(balUSD).prefix}2.png`;
-      document.getElementById("modal").classList.remove("hidden");
+      showModal(false);
     }
   }
 }
 
 function closeModal() {
-  document.getElementById("modal").classList.add("hidden");
-  setPigVisual("normal");
+  const modal = document.getElementById("modal");
+  const isSuccess = modal.classList.contains("success");
+  modal.classList.add("hidden");
+  modal.classList.remove("success");
+  // Only reset pig to normal if we're closing a warning (early break)
+  // For success, keep pig happy until user navigates away
+  if (!isSuccess) setPigVisual("normal");
 }
 
 async function confirmWithdraw() {
-  closeModal();
+  // Close overlay only — do NOT reset pig visual.
+  // Pig stays sad (early break) or happy (success) through the whole tx.
+  const modal = document.getElementById("modal");
+  modal.classList.add("hidden");
+  modal.classList.remove("success");
   await executeWithdraw();
 }
 
@@ -458,7 +525,7 @@ async function executeWithdraw() {
 // ── UI helpers ─────────────────────────────────────────────
 function setBusy(on) {
   document.querySelectorAll(
-    ".btn-deposit, .btn-break, .btn-break-anyway, .btn-keep, .btn-buy"
+    ".btn-deposit, .btn-break, .btn-break-modal, .btn-keep, .c-btn"
   ).forEach(b => b.disabled = on);
 }
 
