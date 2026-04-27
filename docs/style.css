@@ -154,6 +154,7 @@ body {
   color: #5A3A28;
   text-align: center;
   line-height: 1.45;
+  padding: 0 1.2rem;
 }
 
 /* Row 10, B-D — Connect Wallet / Buy Pig button */
@@ -199,6 +200,7 @@ body {
   font-size: 20px;
   color: #5A3A28;
   text-align: center;
+  padding: 0 1.2rem;
 }
 
 /* 7B-9D: mode toggle area — items packed toward top */
