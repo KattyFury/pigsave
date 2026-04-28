@@ -51,35 +51,37 @@
   <!-- 5×11 grid: a-e cols, 1-11 rows -->
   <div id="buySection" class="screen screen-buy hidden">
 
-    <!-- row 1 a-e: header — PigSave logo | lang pill | menu icon -->
+    <!-- row 1 a-d: header — PigSave logo left | lang pill + menu right -->
     <div class="b-header">
       <span class="b-logo">PigSave</span>
-      <div class="lang-selector">
-        <button class="lang-pill" onclick="toggleLangMenu()">EN</button>
-        <div class="lang-dropdown">
-          <button class="lang-option active" onclick="pickLang('en')">EN</button>
-          <button class="lang-option"        onclick="pickLang('vi')">VI</button>
-          <button class="lang-option"        onclick="pickLang('zh')">CN</button>
+      <div class="b-header-right">
+        <div class="lang-selector">
+          <button class="lang-pill" onclick="toggleLangMenu()">EN</button>
+          <div class="lang-dropdown">
+            <button class="lang-option active" onclick="pickLang('en')">EN</button>
+            <button class="lang-option"        onclick="pickLang('vi')">VI</button>
+            <button class="lang-option"        onclick="pickLang('zh')">CN</button>
+          </div>
         </div>
-      </div>
-      <div class="b-menu-wrap">
-        <button class="b-menu-btn" onclick="toggleBuyMenu()">
-          <svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect y="0"    width="22" height="2.5" rx="1.25" fill="#5A3A28"/>
-            <rect y="6.75" width="22" height="2.5" rx="1.25" fill="#5A3A28"/>
-            <rect y="13.5" width="22" height="2.5" rx="1.25" fill="#5A3A28"/>
-          </svg>
-        </button>
-        <div class="b-menu-dropdown hidden" id="buyMenuDropdown">
-          <button class="b-menu-item" onclick="menuAction('history')">
-            <span data-vi="Lịch sử giao dịch" data-en="Deposit History" data-zh="存款记录">Deposit History</span>
+        <div class="b-menu-wrap">
+          <button class="b-menu-btn" onclick="toggleBuyMenu()">
+            <svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect y="0"    width="22" height="2.5" rx="1.25" fill="#5A3A28"/>
+              <rect y="6.75" width="22" height="2.5" rx="1.25" fill="#5A3A28"/>
+              <rect y="13.5" width="22" height="2.5" rx="1.25" fill="#5A3A28"/>
+            </svg>
           </button>
-          <button class="b-menu-item" onclick="menuAction('security')">
-            <span data-vi="An toàn &amp; Bảo mật" data-en="Trust &amp; Security" data-zh="信任与安全">Trust &amp; Security</span>
-          </button>
-          <button class="b-menu-item" onclick="menuAction('about')">
-            <span data-vi="Về PigSave" data-en="About PigSave" data-zh="关于 PigSave">About PigSave</span>
-          </button>
+          <div class="b-menu-dropdown hidden" id="buyMenuDropdown">
+            <button class="b-menu-item" onclick="menuAction('history')">
+              <span data-vi="Lịch sử giao dịch" data-en="Deposit History" data-zh="存款记录">Deposit History</span>
+            </button>
+            <button class="b-menu-item" onclick="menuAction('security')">
+              <span data-vi="An toàn &amp; Bảo mật" data-en="Trust &amp; Security" data-zh="信任与安全">Trust &amp; Security</span>
+            </button>
+            <button class="b-menu-item" onclick="menuAction('about')">
+              <span data-vi="Về PigSave" data-en="About PigSave" data-zh="关于 PigSave">About PigSave</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

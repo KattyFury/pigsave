@@ -187,17 +187,19 @@ body {
 .c-btn:disabled { opacity: 0.45; cursor: default; transform: none; }
 
 /* ══════════════════════════════════════════════════════════
-   SCREEN 2 · BUY PIG — 5 cols × 11 rows
+   SCREEN 2 · BUY PIG — 4 cols × 12 rows  (mirrors connect grid)
+   Row positions deliberately match connect screen:
+     row 7 = subtitle, row 8 = main action, rows 10-11 = button
 ══════════════════════════════════════════════════════════ */
 .screen-buy {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(11, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(12, 1fr);
 }
 
-/* Row 1 a-e: header bar */
+/* Row 1 a-d: header — PigSave logo left | lang+menu group right */
 .b-header {
-  grid-column: 1 / 6;
+  grid-column: 1 / 5;
   grid-row: 1;
   display: flex;
   align-items: center;
@@ -217,7 +219,14 @@ body {
   filter: drop-shadow(0 1px 4px rgba(224,120,64,0.20));
 }
 
-/* lang selector override inside the header flex flow */
+/* lang + menu grouped on the right side of the header */
+.b-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* lang selector override: participates in flex flow (not absolute) */
 .b-header .lang-selector {
   position: relative;
   top: auto;
@@ -229,8 +238,8 @@ body {
 .b-menu-wrap { position: relative; }
 
 .b-menu-btn {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -270,9 +279,9 @@ body {
 .b-menu-item:hover { background: #FDF2E4; color: #E07840; }
 .b-menu-item + .b-menu-item { border-top: 1px solid rgba(0,0,0,0.06); }
 
-/* Row 2 c-e: wallet address + balance (right-aligned) */
+/* Row 2 c-d: wallet address + balance — top-right, below menu */
 .b-wallet-info {
-  grid-column: 3 / 6;
+  grid-column: 3 / 5;
   grid-row: 2;
   display: flex;
   flex-direction: column;
@@ -293,33 +302,35 @@ body {
   color: #E07840;
 }
 
-/* Rows 3-5, b-d: pig on buy screen */
+/* Rows 3-6, b-c: pig — identical position to connect screen */
 .screen-buy .c-pig {
-  grid-column: 2 / 5;
-  grid-row: 3 / 6;
+  grid-column: 2 / 4;
+  grid-row: 3 / 7;
 }
 
-/* Row 7 a-e: subtitle */
+/* Row 7 a-d: subtitle — same row as connect screen's c-sub */
 .b-subtitle {
-  grid-column: 1 / 6;
+  grid-column: 1 / 5;
   grid-row: 7;
   align-self: center;
   justify-self: center;
   font-family: 'Roboto Condensed', 'Roboto', sans-serif;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 20px;
   color: #5A3A28;
   text-align: center;
-  line-height: 1.35;
+  line-height: 1.45;
   padding: 0 2rem;
 }
 
-/* Row 8 b-d: mode toggle row (cols 2-4, symmetric 1-col margin each side) */
+/* Row 8 a-d: Normal / With Goal toggle — same row as CONNECT WALLET */
 .b-mode-toggle {
-  grid-column: 2 / 5;
+  grid-column: 1 / 5;
   grid-row: 8;
   display: flex;
   align-items: center;
+  align-self: center;
+  margin: 0 1.5rem;
 }
 
 .b-mode-btns {
@@ -351,16 +362,16 @@ body {
   box-shadow: 0 2px 10px rgba(216,104,40,0.38);
 }
 
-/* Row 9 b-d: description + optional goal input (same cols as toggle) */
+/* Row 9 a-d: description + optional goal input */
 .b-desc-row {
-  grid-column: 2 / 5;
+  grid-column: 1 / 5;
   grid-row: 9;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   gap: 0.45rem;
-  padding-top: 0.2rem;
+  padding: 0.3rem 2rem 0;
 }
 
 .b-mode-desc {
@@ -395,9 +406,9 @@ body {
 .goal-input::placeholder { color: #C8A898; }
 .goal-input:focus { border-color: #E07840; box-shadow: 0 0 0 3px rgba(224,120,64,0.15); }
 
-/* Rows 10-11 a-e: BUY PIG button (full width with margins, like CONNECT WALLET) */
+/* Rows 10-11 a-d: BUY PIG — centered in 2-row span, full width with margins */
 .b-buy-btn {
-  grid-column: 1 / 6;
+  grid-column: 1 / 5;
   grid-row: 10 / 12;
   align-self: center;
   justify-self: stretch;
