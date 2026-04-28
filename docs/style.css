@@ -283,8 +283,9 @@ body {
   align-items: flex-end;
   justify-content: flex-start;
   align-self: start;
-  padding: 0.25rem 1.25rem 0 0;
+  padding: 0 1.25rem 0 0;
   gap: 0.35rem;
+  margin-top: -4px;
 }
 .b-wallet-top {
   display: flex;
@@ -468,8 +469,9 @@ body {
   align-items: flex-end;
   justify-content: flex-start;
   align-self: start;
-  padding: 0.25rem 1.25rem 0 0;
+  padding: 0 1.25rem 0 0;
   gap: 0.35rem;
+  margin-top: -4px;
 }
 
 /* Row 2 a-d: "Saved N times" + status line — shifted 30px down */
